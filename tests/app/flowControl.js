@@ -4,6 +4,24 @@ if ( typeof window === 'undefined' ) {
 }
 
 describe('flow control', function() {
+
+  var flowControlAnswers;
+
+  flowControlAnswers = {
+    fizzBuzz : function (param) {
+      if (param % 3 == 0 && param % 5 == 0) {
+        return 'fizzbuzz';
+      } 
+      if (param % 3 == 0) {
+        return 'fizz';
+      } 
+      if (param % 5 == 0) {
+        return 'buzz';
+      } 
+      return parseInt(param);
+    }
+
+  }
   it('you should be able to conditionally branch your code', function() {
     var num = 0;
 

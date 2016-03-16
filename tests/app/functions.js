@@ -9,10 +9,42 @@ describe('functions', function() {
         sayItCalled = true;
         return greeting + ', ' + name + (punctuation || '!');
       };
-
+  var functionsAnswers;
   beforeEach(function () {
     sayItCalled = false;
   });
+
+  functionsAnswers = {
+      argsAsArray: function(to_do,array) {
+        return to_do.apply(null,array)
+      },
+      speak: function(to_do,obj) {
+        return to_do.call(obj);
+      },
+      functionFunction: function(func_1) {
+        return function (func_2) {
+          return func_1 + ', ' + func_2;
+        }
+      },
+      makeClosures: function (arr,square) {
+        var funs = function(i) {
+            arr[i] = square(arr[i]);
+          return arr[i];
+        }
+        return funs;
+      },
+      useArguments: function (arg1,arg2,arg3,arg4) {
+        if (arg2 && arg3 && arg4) {
+          return arg1 + arg2 + arg3 + arg4;
+        } else if (arg2 && arg3) {
+          return arg1 + arg2 + arg3;
+        } else if (arg2) {
+          return arg1 + arg2;
+        } else {
+          return arg1;
+        }
+      }
+  }
 
   it('you should be able to use an array as arguments when calling a function', function() {
     var result = functionsAnswers.argsAsArray(sayIt, [ 'Hello', 'Ellie', '!' ]);
