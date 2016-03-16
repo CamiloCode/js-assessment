@@ -4,13 +4,119 @@ if ( typeof window === 'undefined' ) {
 }
 
 describe('arrays', function() {
-  var a;
-
+  var a;  
+  var arraysAnswers;
+  
   beforeEach(function() {
     a = [ 1, 2, 3, 4 ];
   });
 
+  arraysAnswers = {
+      indexOf: function(array,value) {
+        return array.indexOf(value);
+      },
+      sum: function(array) {
+        var total=0;
+        for(var i in array) { 
+          total += array[i];
+        }
+        return total;
+      },
+      remove: function(array,value) {
+        result = [];
+        var len  = array.length;
+        for(var i=0; i < len; i ++) {
+          if (array[i] != value) {
+            result.push(array[i]);
+          }
+        }
+        return result;
+      },
+      removeWithoutCopy: function(array,value) {
+        var len  = array.length;
+        for(var i=0; i < len; i ++) {
+          if (array.indexOf(value) != -1){
+            array.splice(array.indexOf(value),1);
+          }
+        }
+        return array;
+      },
+      append: function(array,value) {
+        array.push(value);
+        return array;
+      },
+      truncate: function(array,value) {
+        array.pop(value);
+        return array;
+      },
+      prepend: function(array,value) {
+        array.splice(0,0,value);
+        return array;
+      },
+      curtail: function(array,value) {
+        array.splice(0,1);
+        return array;
+      },
+      concat: function(array,array2) {
+        array = array.concat(array2);
+        return array;
+      },     
+      insert: function(array,value,position) {
+        array.splice(position,0,value);
+        return array;
+      },
+      count: function(array,value) {
+        len = array.length
+        count = 0;
+        for (var i = 0; i < len; i ++) {
+          if (array[i] == value) {
+            count++;
+          }
+        }
+        return count;
+      },
+      duplicates: function(array) {
+        len = array.length
+        count = 0;
+        result = [];
+        for (var i = 0; i < len; i ++) {
+          count = 0 ;
+          for (var j = 0; j < len; j ++) {
+            if (array[i] == array[j]) {
+              count++;
+            }
+          }
+          if (count > 1 && result.indexOf(array[i]) == -1 ) {
+            result.push(array[i]);
+          }
+
+        }
+        return result;
+      },
+      square: function(array) {
+        len = array.length
+        for (var i = 0; i < len; i ++) {
+          array[i] = array[i] * array[i];
+        }
+        return array;
+      },
+      findAllOccurrences: function(array,value) {
+        len = array.length;
+        result = [];
+        count = 0;
+        for (var i = 0; i < len; i++) {
+          if (array[i] == value) {
+            result.push(array.indexOf(value)+count);
+            array.splice(array.indexOf(value),1);
+            count++;
+          }  
+        }
+        return result;
+      }
+  };
+
   it('you should be able to determine the location of an item in an array', function() {
+
     expect(arraysAnswers.indexOf(a, 3)).to.eql(2);
     expect(arraysAnswers.indexOf(a, 5)).to.eql(-1);
   });
@@ -28,6 +134,7 @@ describe('arrays', function() {
   });
 
   it('you should be able to remove all instances of a value from an array, returning the original array', function() {
+
     a.splice( 1, 0, 2 );
     a.push( 2 );
     a.push( 2 );
